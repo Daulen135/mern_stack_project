@@ -56,8 +56,6 @@ header a {
   font-size: 0.9em;
   color: #555;
 }
-
-/* for deleted button */
 .workout-details span {
   position: absolute;
   top: 20px;
@@ -98,4 +96,7 @@ div.error {
   color: var(--error);
   border-radius: 4px;
   margin: 20px 0;
+}
+input.error {
+  border: 1px solid var(--error);
 }
