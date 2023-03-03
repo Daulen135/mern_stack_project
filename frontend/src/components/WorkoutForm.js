@@ -6,6 +6,7 @@ const WorkoutForm = () => {
   const { dispatch } = useWorkoutsContext()
   const { user } = useAuthContext()
 
+  const [post, setPost] = useState('');
   const [title, setTitle] = useState('')
   const [load, setLoad] = useState('')
   const [reps, setReps] = useState('')
@@ -20,7 +21,7 @@ const WorkoutForm = () => {
       return
     }
 
-    const workout = {title, load, reps}
+    const workout = {post,title, load, reps}
 
     const response = await fetch('/api/workouts', {
       method: 'POST',
@@ -37,6 +38,7 @@ const WorkoutForm = () => {
       setEmptyFields(json.emptyFields)
     }
     if (response.ok) {
+      setPost('')
       setTitle('')
       setLoad('')
       setReps('')
@@ -48,7 +50,14 @@ const WorkoutForm = () => {
 
   return (
     <form className="create" onSubmit={handleSubmit}>
-      <h3>Add a New Workout</h3>
+      <h3>Add Session Notes</h3>
+      <label>
+      Notes:
+      <textarea name="postContent" rows={4} cols={40}
+      onChange={(e) => setPost(e.target.value)}
+      value={post}
+      />
+    </label>
 
       <label>Excersize Title:</label>
       <input 
@@ -74,7 +83,7 @@ const WorkoutForm = () => {
         className={emptyFields.includes('reps') ? 'error' : ''}
       />
 
-      <button>Add Workout</button>
+      <button>Add  Notes</button>
       {error && <div className="error">{error}</div>}
     </form>
   )

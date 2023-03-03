@@ -140,10 +140,13 @@ const getWorkout = async (req, res) => {
 
 // create new workout
 const createWorkout = async (req, res) => {
-  const {title, load, reps} = req.body
+  const {post, title, load, reps} = req.body
 
   let emptyFields = []
 
+  if(!post){
+    emptyFields.push('post')
+  }
   if(!title) {
     emptyFields.push('title')
   }
@@ -160,7 +163,7 @@ const createWorkout = async (req, res) => {
   // add doc to db
   try {
     const user_id = req.user._id
-    const workout = await Workout.create({title, load, reps, user_id})
+    const workout = await Workout.create({post,title, load, reps, user_id})
     res.status(200).json(workout)
   } catch (error) {
     res.status(400).json({error: error.message})
